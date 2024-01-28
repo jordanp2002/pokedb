@@ -64,21 +64,11 @@
     <nav>
         <a href="#">Sets</a>
     </nav>
-
     <div class="search-container">
-        <form>
-            <input type="text" id="searchInput" placeholder="Search...">
-            <button type="button" onclick="search()">Search</button>
+        <form action="/SearchPage" method="GET">
+            <input type="text" placeholder="Search..." name="pokemon>
+            <input type="submit" value="Submit">
         </form>
     </div>
-
-    <script>
-        function search() {
-            var searchText = document.getElementById("searchInput").value;
-            // You can perform further actions with the searchText variable
-            console.log("Search Text: " + searchText);
-        }
-    </script>
-
 </body>
 </html>
