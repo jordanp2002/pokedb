@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon TCG Database</title>
+    <style>
+        body {
+            background-color: #f2f2f2; /* Light gray background */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #e74c3c; /* Red header background */
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #3498db; /* Blue nav bar background */
+            overflow: hidden;
+        }
+
+        nav a {
+            float: left;
+            display: block;
+            color: #fff; /* White text color */
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background-color: #555; /* Dark gray background on hover */
+            color: white;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        input[type=text] {
+            padding: 10px;
+            width: 300px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50; /* Green search button */
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Pokémon TCG Database</h1>
+    </header>
+
+    <nav>
+        <a href="#">Sets</a>
+    </nav>
+
+    <div class="search-container">
+        <form>
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button type="button" onclick="search()">Search</button>
+        </form>
+    </div>
+
+    <script>
+        function search() {
+            var searchText = document.getElementById("searchInput").value;
+            // You can perform further actions with the searchText variable
+            console.log("Search Text: " + searchText);
+        }
+    </script>
+
+</body>
+</html>
