@@ -34,15 +34,29 @@ router.get('/', function(req, res,next) {
     res.write('</head>');
     res.write('<body>');
     res.write('<header>');
-    res.write('<h1>PokeMon Sets</h1>');
+    res.write('<h1>Pokemon TCG</h1>');
     res.write('</header>');
     res.write('<main id="pokemonResults">');
     let id = req.query.id;
     let name = req.query.name;
     pokemon.card.find(id).then(card => {
         res.write('<h2>' + card.name + '</h2>');
-        res.write('<img src="' + card.images.large + '">');
+        res.write('<img src="' + card.images.large + '" alt="Image of ' + card.name + '">');
         res.write('<p>' + card.text + '</p>');
+        res.write('<table>');
+        res.write('<tr><th>HP</th><td>' + card.hp + '</td></tr>');
+        res.write('<tr><th>Evolves From</th><td>' + (card.evolvesFrom || 'N/A') + '</td></tr>');
+        res.write('<tr><th colspan="4">Attacks</th></tr>');
+        res.write('<tr><th>Name</th><th>Description</th><th>Damage</th><th>Energy Cost</th></tr>');
+    for(let i = 0; i < card.attacks.length; i++) {
+        res.write('<tr>');
+        res.write('<td>' + card.attacks[i].name + '</td>');
+        res.write('<td>' + card.attacks[i].text + '</td>');
+        res.write('<td>' + card.attacks[i].damage + '</td>');
+        res.write('<td>' + card.attacks[i].convertedEnergyCost + '</td>');
+        res.write('</tr>');
+        }
+        res.write('</table>');
         res.write('</main>');
         res.write('</body>');
         res.write('</html>');
