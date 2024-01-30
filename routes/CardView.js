@@ -34,21 +34,20 @@ router.get('/', function(req, res,next) {
     res.write('</head>');
     res.write('<body>');
     res.write('<header>');
-    res.write('<h1>Pokemon Search</h1>');
+    res.write('<h1>PokeMon Sets</h1>');
     res.write('</header>');
     res.write('<main id="pokemonResults">');
-    let pokemonName = req.query.pokemon;
-    pokemon.card.where({ q: 'name:' + pokemonName}).then(result => {
-        for (let i = 0; i < result.data.length; i++) {
-            res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
-        }
-        if (result.data.length == 0) {
-            res.write('<h2>No Pokemon found</h2>');
-        }
+    let id = req.query.id;
+    let name = req.query.name;
+    pokemon.card.find(id).then(card => {
+        res.write('<h2>' + card.name + '</h2>');
+        res.write('<img src="' + card.images.large + '">');
+        res.write('<p>' + card.text + '</p>');
         res.write('</main>');
         res.write('</body>');
         res.write('</html>');
         res.end();
-    })
-});
+        });
+    
+    });
 module.exports = router;

@@ -40,8 +40,7 @@ router.get('/', function(req, res,next) {
     pokemon.set.where({ q: 'series: Sword & Shield' }).then(result => {
          for (let i = 0; i < result.data.length; i++) {
             res.write ('<img src="' + result.data[i].images.small+ '">');
-        }
-    
+         }
         res.write('</main>');
         res.write('</body>');
         res.write('</html>');
