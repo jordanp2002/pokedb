@@ -40,22 +40,33 @@ router.get('/', function(req, res,next) {
     let id = req.query.id;
     let name = req.query.name;
     pokemon.card.find(id).then(card => {
-        res.write('<h2>' + card.name + '</h2>');
+        res.write('<style>');
+        res.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
+        res.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
+        res.write('th { background-color: #f2f2f2; }');
+        res.write('tr:nth-child(even){background-color: #f9f9f9;}');
+        res.write('.image-container { text-align: center; margin-bottom: 20px; }');
+        res.write('img { max-width: 500px; height: auto; }');
+        res.write('</style>');
+        res.write('<h1>' + card.name + '</h1>');  
+        res.write('<div class="image-container">');
         res.write('<img src="' + card.images.large + '" alt="Image of ' + card.name + '">');
+        res.write('</div>');
         res.write('<p>' + card.text + '</p>');
         res.write('<table>');
         res.write('<tr><th>HP</th><td>' + card.hp + '</td></tr>');
         res.write('<tr><th>Evolves From</th><td>' + (card.evolvesFrom || 'N/A') + '</td></tr>');
         res.write('<tr><th colspan="4">Attacks</th></tr>');
         res.write('<tr><th>Name</th><th>Description</th><th>Damage</th><th>Energy Cost</th></tr>');
-    for(let i = 0; i < card.attacks.length; i++) {
-        res.write('<tr>');
-        res.write('<td>' + card.attacks[i].name + '</td>');
-        res.write('<td>' + card.attacks[i].text + '</td>');
-        res.write('<td>' + card.attacks[i].damage + '</td>');
-        res.write('<td>' + card.attacks[i].convertedEnergyCost + '</td>');
-        res.write('</tr>');
+        for(let i = 0; i < card.attacks.length; i++) {
+            res.write('<tr>');
+            res.write('<td>' + card.attacks[i].name + '</td>');
+            res.write('<td>' + card.attacks[i].text + '</td>');
+            res.write('<td>' + card.attacks[i].damage + '</td>');
+            res.write('<td>' + card.attacks[i].convertedEnergyCost + '</td>');
+            res.write('</tr>');
         }
+        res.write('</table>');
         res.write('</table>');
         res.write('</main>');
         res.write('</body>');
