@@ -56,7 +56,7 @@ router.get('/', function(req, res,next) {
         res.write('<table>');
         res.write('<tr><th>HP</th><td>' + card.hp + '</td></tr>');
         res.write('<tr><th>Evolves From</th><td>' + (card.evolvesFrom || 'N/A') + '</td></tr>');
-        res.write('<tr><th colspan="4">Attacks</th></tr>');
+        res.write('<h3>Attacks</h3>');
         res.write('<tr><th>Name</th><th>Description</th><th>Damage</th><th>Energy Cost</th></tr>');
         for(let i = 0; i < card.attacks.length; i++) {
             res.write('<tr>');
@@ -67,12 +67,30 @@ router.get('/', function(req, res,next) {
             res.write('</tr>');
         }
         res.write('</table>');
+        res.write('<table>');
+        res.write('<h3>Set Information</h3>');
+        res.write('<tr><th>Set</th><th>Rarity</th><th>Number</th></tr>');
+            res.write('<tr>');
+            res.write('<td>' + card.set.name + '</td>');
+            res.write('<td>' + card.rarity + '</td>');
+            res.write('<td>' + card.number + '</td>');
+            res.write('</tr>');
+        res.write('</table>');
+        res.write('<table>');
+        res.write('<h3>Prices</h3>');
+        res.write('<tr><th>Avg Sell Price(Euros) </th><th>Low Price(Euros) </th><th>Trend Price(Euros)</th><th>7 Day Average(Euros)</th><th>30 Day Average(Euros)</th></tr>');
+            res.write('<tr>');
+            res.write('<td>' + card.cardmarket.prices.averageSellPrice + '</td>');
+            res.write('<td>' + card.cardmarket.prices.lowPrice + '</td>');
+            res.write('<td>' + card.cardmarket.prices.trendPrice + '</td>');
+            res.write('<td>' + card.cardmarket.prices.avg7 + '</td>');
+            res.write('<td>' + card.cardmarket.prices.avg30 + '</td>');
+            res.write('</tr>');
         res.write('</table>');
         res.write('</main>');
         res.write('</body>');
         res.write('</html>');
         res.end();
         });
-    
     });
 module.exports = router;

@@ -4,6 +4,8 @@ const pokemon = require('pokemontcgsdk');
 pokemon.configure({apiKey: '${process.env.API_KEY}'});
 
 router.get('/', function(req, res,next) {
+    let sort = req.query.sort || 'number';
+    let pokemonName = req.query.pokemon;
     res.write('<!DOCTYPE html>');
     res.write('<html lang="en">');
     res.write('<head>');
@@ -37,18 +39,28 @@ router.get('/', function(req, res,next) {
     res.write('<h1>Pokemon Search</h1>');
     res.write('</header>');
     res.write('<main id="pokemonResults">');
-    let pokemonName = req.query.pokemon;
-    pokemon.card.where({ q: 'name:' + pokemonName}).then(result => {
-        for (let i = 0; i < result.data.length; i++) {
-            res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
-        }
-        if (result.data.length == 0) {
-            res.write('<h2>No Pokemon found</h2>');
-        }
-        res.write('</main>');
-        res.write('</body>');
-        res.write('</html>');
-        res.end();
-    })
+    res.write('<form action="SearchPage" method="get">');
+    res.write('<select name="sort" id="sort">');
+    res.write('<option value="rarity">Rarity Ascending</option>');
+    res.write('<option value="-rarity">Rarity Descending</option>');
+    res.write('<option value="set.releaseDate">releaseDate Ascending</option>');
+    res.write('<option value="-set.releaseDate">releaseDate Descending</option>');
+    res.write('</select>');
+    res.write('<input type="hidden" name="pokemon" value="' + pokemonName + '">');
+    res.write('<input type="submit" value="Sort">');
+    res.write('</form>');
+        pokemon.card.where({ q: 'name:' + pokemonName, orderBy: sort }).then(result => {
+            for (let i = 0; i < result.data.length; i++) {
+                res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
+            }
+            if (result.data.length == 0) {
+                res.write('<h2>No Pokemon found</h2>');
+            }
+            res.write('</main>');
+            res.write('</body>');
+            res.write('</html>');
+            res.end();
+        })
+    
 });
 module.exports = router;
