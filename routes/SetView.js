@@ -34,37 +34,32 @@ router.get('/', function(req, res,next) {
     res.write('</head>');
     res.write('<body>');
     res.write('<header>');
-    res.write('<h1>PokeMon Sets</h1>');
+    res.write('<h1>Pokemon TCG</h1>');
     res.write('</header>');
     res.write('<main id="pokemonResults">');
-    let set = req.query.set;
-    res.write('<h2>' + set + '</h2>');
-    pokemon.set.where({ q: 'series:' + set + '' }).then(result => {
+    let id = req.query.id;
+    let name = req.query.name;
+    pokemon.set.find(id).then(set => {
         res.write('<style>');
-        res.write('table { width: 100%; border-collapse: collapse; }');
+        res.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
         res.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
         res.write('th { background-color: #f2f2f2; }');
-        res.write('img { max-height: 50px; width: auto; }'); // Adjust image size as needed
+        res.write('tr:nth-child(even){background-color: #f9f9f9;}');
+        res.write('.image-container { text-align: center; margin-bottom: 20px; }');
+        res.write('img { max-width: 500px; height: auto; }');
         res.write('</style>');
+        res.write('<img src="' + set.images.logo + '" alt="Logo of ' + set.name + '">');
         res.write('<table>');
-        res.write('<tr><th>Set Logo</th><th>Set Name</th></tr>'); // Table headers
-
-        for(let i = 0; i < result.data.length; i++){
-            res.write('<tr>');
-            res.write('<td><a href="SetView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.logo + '" alt="Logo"></a></td>');
-            res.write('<td><a href="SetView?id=' + result.data[i].id + '&name=' + result.data[i].name + '">' + result.data[i].name + '</a></td>');
-            res.write('</tr>');
-        }
-
+        res.write('<tr><th>Property</th><th>Value</th></tr>');
+        res.write('<tr><td>Name</td><td>' + set.name + '</td></tr>');
+        res.write('<tr><td>Release Date</td><td>' + set.releaseDate + '</td></tr>');
+        res.write('<tr><td>Total Cards</td><td>' + set.total + '</td></tr>');
         res.write('</table>');
         res.write('</main>');
         res.write('</body>');
         res.write('</html>');
         res.end();
-    })
+        });
     
-        
-    
-    
-});
+    });
 module.exports = router;
