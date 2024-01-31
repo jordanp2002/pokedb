@@ -54,6 +54,7 @@ router.get('/', function(req, res,next) {
     res.write('<option value="-set.releaseDate">releaseDate Descending</option>');
     res.write('</select>');
     res.write('<input type="hidden" name="pokemon" value="' + pokemonName + '">');
+    res.write('<input type="hidden" name="type" value="' + pokemonType + '">');
     res.write('<input type="submit" value="Sort">');
     res.write('</form>');
     if(pokemonName != undefined && pokemonType == "None"){
@@ -93,5 +94,6 @@ router.get('/', function(req, res,next) {
                 res.write('</html>');
                 res.end();
         }); }
+
 });
 module.exports = router;
