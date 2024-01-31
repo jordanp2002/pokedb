@@ -73,7 +73,21 @@
     <div class="search-container">
         <h2>Search Specific Pokemon</h2>
         <form action="/SearchPage" method="get">
-            <input type="text" placeholder="Search..." id="pokemon" name="pokemon" required>
+            <input type="text" placeholder="Search..." id="pokemon" name="pokemon">
+            <select id="type" name ="type">
+                <option value="None">None</option>
+                <option value="Water">Water</option>
+                <option value="Fire">Fire</option>
+                <option value="Grass">Grass</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Colorless">Normal</option>
+                <option value="Fairy">Fairy</option>
+                <option value="Fighting">Fighting</option>
+                <option value="Lightning">Electric</option>
+                <option value="Psychic">Psychic</option>
+                <option value="Metal">Steel</option>
+                <option value="Darkness">Dark</option>
+            </select>
             <button type="submit">Search</button>
         </form>
     </div>

@@ -6,6 +6,7 @@ pokemon.configure({apiKey: '${process.env.API_KEY}'});
 router.get('/', function(req, res,next) {
     let sort = req.query.sort || 'number';
     let pokemonName = req.query.pokemon;
+    let pokemonType = req.query.type;
     res.write('<!DOCTYPE html>');
     res.write('<html lang="en">');
     res.write('<head>');
@@ -55,7 +56,8 @@ router.get('/', function(req, res,next) {
     res.write('<input type="hidden" name="pokemon" value="' + pokemonName + '">');
     res.write('<input type="submit" value="Sort">');
     res.write('</form>');
-        pokemon.card.where({ q: 'name:' + pokemonName, orderBy: sort }).then(result => {
+    if(pokemonName != undefined && pokemonType == "None"){
+        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort }).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
             }
@@ -66,7 +68,30 @@ router.get('/', function(req, res,next) {
             res.write('</body>');
             res.write('</html>');
             res.end();
-        })
-    
+      }); }else if(pokemonName == '' && pokemonType != "None"){
+            pokemon.card.where({ q: 'types:' + pokemonType, orderBy: sort }).then(result => {
+                for (let i = 0; i < result.data.length; i++) {
+                    res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
+                }
+                if (result.data.length == 0) {
+                    res.write('<h2>No Pokemon found</h2>');
+                }
+                res.write('</main>');
+                res.write('</body>');
+                res.write('</html>');
+                res.end();
+        }); }else if(pokemonName != '' && pokemonType != "None"){
+            pokemon.card.where({ q: 'name:' + pokemonName + ' types:' + pokemonType, orderBy: sort }).then(result => {
+                for (let i = 0; i < result.data.length; i++) {
+                    res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
+                }
+                if (result.data.length == 0) {
+                    res.write('<h2>No Pokemon found</h2>');
+                }
+                res.write('</main>');
+                res.write('</body>');
+                res.write('</html>');
+                res.end();
+        }); }
 });
 module.exports = router;
