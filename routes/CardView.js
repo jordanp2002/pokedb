@@ -18,9 +18,15 @@ router.get('/', function(req, res,next) {
     res.write('padding: 0;');
     res.write('}');
     res.write('header {');
-    res.write('background-color: #e74c3c;');
-    res.write('padding: 15px;');
-    res.write('text-align: center;');
+    res.write('    background-color: #e74c3c;'); 
+    res.write('    padding: 20px 15px;'); 
+    res.write('    text-align: center;');
+    res.write('    color: white;'); 
+    res.write('    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);'); 
+    res.write('    font-family: \'Arial\', sans-serif;'); 
+    res.write('    font-size: 24px;'); 
+    res.write('    border-bottom: 3px solid #c0392b;'); 
+    res.write('    margin-bottom: 25px;');
     res.write('}');
     res.write('main {');
     res.write('padding: 20px;');
