@@ -7,6 +7,7 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
     res.render('index');
 });
+app.use(express.static("./public"));
 let SetsPage = require('./routes/SetsPage');
 let CardView = require('./routes/CardView');
 let SetView = require('./routes/SetView');

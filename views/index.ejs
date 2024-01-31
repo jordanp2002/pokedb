@@ -2,101 +2,115 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pokémon TCG Database</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> <!-- Pokémon-like font -->
     <style>
         body {
-            background-color: #f2f2f2; /* Light gray background */
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #F7F7F7;
+            background-image: url('img/landscape.png'); /* Add a subtle Pokémon background */
         }
-
-        header {
-            background-color: #e74c3c;
-            padding: 20px 15px; 
-            text-align: center;
+        .header {
+            background-color: #FF0000; /* Pokéball red */
             color: white;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            font-family: \'Arial\', sans-serif;
-            font-size: 24px; 
-            border-bottom: 3px solid #c0392b;
-            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
+        
+        .btn-primary {
+            background-color: #3B4CCA; /* Pokéball blue */
+            border-color: #3B4CCA;
 
-        nav {
-            background-color: #3498db; /* Blue nav bar background */
-            overflow: hidden;
         }
+            #home {
+                display: flex; /* Enables flexbox layout */
+                justify-content: center; /* Centers the items horizontally */
+                 /* Ensures no horizontal scroll */
+            }
 
-        nav a {
-            float: left;
-            display: block;
-            color: #fff; /* White text color */
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        nav a:hover {
-            background-color: #555; /* Dark gray background on hover */
-            color: white;
-        }
-
-        .search-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        input[type=text] {
-            padding: 10px;
-            width: 300px;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4caf50; /* Green search button */
-            color: white;
-            border: none;
-        }
+            .card-img-top {
+                width: 100px; /* Adjust the width as needed */
+                height: auto; /* Keeps the aspect ratio */
+                border: 1px solid #000;
+                box-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+                border-radius: 10px;
+                transition: transform 0.3s ease; /* Smooth transition for hover effect */
+            }
+            .card-img-top:hover {
+                transform: translateX(-25px) scale(1.05);
+                z-index: 4; /* Bring to front on hover */
+            }
+            .search-container h2 {
+                color: #FFCB05; /* Pikachu yellow */
+            }
+       
+        /* Add more styles as needed */
     </style>
 </head>
 <body>
 
-    <header>
+    <!-- Header -->
+    <header class="bg-primary text-white text-center py-3">
         <h1>Pokémon TCG Database</h1>
     </header>
+    <!-- Image Gallery -->
+    <div id="home" class="container mt-4">
+        <div class="row">
+            <div id="home" class="d-flex align-items-center mt-4">
+                <a href="/SearchPage?pokemon=charizard&type=None">
+                    <img src="img/charizard.png" class="card-img-top" alt="Charizard"/>
+                </a>
+                <a href="/SearchPage?pokemon=pikachu&type=None">
+                    <img src="img/pikachu.png" class="card-img-top" alt="Pikachu"/>
+                </a>
+                <a href="/SearchPage?pokemon=lucario&type=None">
+                    <img src="img/lucario.png" class="card-img-top" alt="Lucario"/>
+                </a>
+            </div>
+        </div>
+    </div>
 
-    <nav>
-        
-    </nav>
-    <div class="search-container">
-        <h2>Search Specific Pokemon</h2>
-        <form action="/SearchPage" method="get">
-            <input type="text" placeholder="Search..." id="pokemon" name="pokemon">
-            <select id="type" name ="type">
-                <option value="None">None</option>
-                <option value="Water">Water</option>
-                <option value="Fire">Fire</option>
-                <option value="Grass">Grass</option>
-                <option value="Dragon">Dragon</option>
-                <option value="Colorless">Normal</option>
-                <option value="Fairy">Fairy</option>
-                <option value="Fighting">Fighting</option>
-                <option value="Lightning">Electric</option>
-                <option value="Psychic">Psychic</option>
-                <option value="Metal">Steel</option>
-                <option value="Darkness">Dark</option>
-            </select>
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <div class="search-container">
-        <h2>Search Specific Set</h2>
-        <form action="/SetsPage" method="get">
-            <input type="text" placeholder="Search..." id="set" name="set" required>
-            <button type="submit">Search</button>
-        </form>
-    </div>
+    <!-- Main Content -->
+    <main class="container my-4">
+        <div class="search-container mb-4">
+            <h2>Search Specific Pokemon</h2>
+            <form action="/SearchPage" method="get" class="form-inline">
+                <input type="text" class="form-control mr-2" placeholder="Search..." id="pokemon" name="pokemon">
+                <select id="type" name="type" class="custom-select mr-2">
+                    <!-- options here -->
+                    <!-- ... -->
+                    <option value="None">None</option>
+                    <option value="Water">Water</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Grass">Grass</option>
+                    <option value="Dragon">Dragon</option>
+                    <option value="Colorless">Normal</option>
+                    <option value="Fairy">Fairy</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Lightning">Electric</option>
+                    <option value="Psychic">Psychic</option>
+                    <option value="Metal">Steel</option>
+                    <option value="Darkness">Dark</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        <div class="search-container">
+            <h2>Search Specific Set</h2>
+            <form action="/SetsPage" method="get" class="form-inline">
+                <input type="text" class="form-control mr-2" placeholder="Search..." id="set" name="set">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>
+
+
+
+
+
+                    
