@@ -86,8 +86,8 @@ router.get('/', function(req, res,next) {
     res.write('<select name="sort" id="sort" class="custom-select">');
     res.write('<option value="rarity"' + (sort === 'rarity' ? ' selected' : '') + '>Rarity Ascending</option>');
     res.write('<option value="-rarity"' + (sort === '-rarity' ? ' selected' : '') + '>Rarity Descending</option>');
-    res.write('<option value="set.releaseDate"' + (sort === 'set.releaseDate' ? ' selected' : '') + '>Release Date Ascending</option>');
-    res.write('<option value="-set.releaseDate"' + (sort === '-set.releaseDate' ? ' selected' : '') + '>Release Date Descending</option>');
+    res.write('<option value="set.releaseDate"' + (sort === 'set.releaseDate' ? ' selected' : '') + '>Release Date Oldest</option>');
+    res.write('<option value="-set.releaseDate"' + (sort === '-set.releaseDate' ? ' selected' : '') + '>Release Date Newest</option>');
     res.write('</select>');
     res.write('<button type="submit" class="btn btn-primary">Sort</button>');
     res.write('<input type="hidden" name="pokemon" value="' + pokemonName + '">');
@@ -95,7 +95,7 @@ router.get('/', function(req, res,next) {
     res.write('</form>');
 
     if(pokemonName != undefined && pokemonType == "None"){
-        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort }).then(result => {
+        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort, pageSize: 250, page: 2}).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
             }
@@ -107,7 +107,7 @@ router.get('/', function(req, res,next) {
             res.write('</html>');
             res.end();
       }); }else if(pokemonName == '' && pokemonType != "None"){
-            pokemon.card.where({ q: 'types:' + pokemonType, orderBy: sort }).then(result => {
+            pokemon.card.where({ q: 'types:' + pokemonType, orderBy: sort , pageSize: 250}).then(result => {
                 for (let i = 0; i < result.data.length; i++) {
                     res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
                 }
@@ -119,7 +119,7 @@ router.get('/', function(req, res,next) {
                 res.write('</html>');
                 res.end();
         }); }else if(pokemonName != '' && pokemonType != "None"){
-            pokemon.card.where({ q: 'name:' + pokemonName + ' types:' + pokemonType, orderBy: sort }).then(result => {
+            pokemon.card.where({ q: 'name:' + pokemonName + ' types:' + pokemonType, orderBy: sort, pageSize: 250 }).then(result => {
                 for (let i = 0; i < result.data.length; i++) {
                     res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
                 }
