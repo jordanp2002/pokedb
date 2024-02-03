@@ -95,7 +95,7 @@ router.get('/', function(req, res,next) {
     res.write('</form>');
 
     if(pokemonName != undefined && pokemonType == "None"){
-        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort, pageSize: 250, page: 2}).then(result => {
+        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort, pageSize: 250}).then(result => {
             for (let i = 0; i < result.data.length; i++) {
                 res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
             }
