@@ -13,25 +13,25 @@ router.get('/', function(req, res,next) {
     res.write('<meta charset="UTF-8">');
     res.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
     res.write('<title>Pokemon Search</title>');
-    res.write(' <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">');
     res.write(' <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>');
     res.write('<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">');
     res.write('<style>');
     res.write('body {');
-    res.write('background-color: #f2f2f2;');
-    res.write('font-family: \'Arial\', sans-serif;');
+    res.write(' background-image: url(\'img/landscape.png\');');
+    res.write('font-family: \'Press Start 2P\', cursive;');
     res.write('margin: 0;');
     res.write('padding: 0;');
     res.write('}');
     res.write('header {');
-    res.write('    background-color: #007bff;'); 
+    res.write('     text-shadow: 2px 2px 5px black;')
+    res.write('    background-color: #3B4CCA;'); 
     res.write('    padding: 10px 15px;'); 
     res.write('    text-align: center;');
     res.write('    color: white;'); 
     res.write('    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);'); 
-    res.write('    font-family: \'Arial\', sans-serif;'); 
+    res.write('    font-family: \'Press Start 2P\', cursive;'); 
     res.write('    font-size: 24px;'); 
-    res.write('    border-bottom: 3px solid #007bff;'); 
+    res.write('    border-bottom: 3px solid #3B4CCA;'); 
     res.write('    margin-bottom: 25px;');
     res.write('}');
     res.write('main {');
@@ -41,6 +41,7 @@ router.get('/', function(req, res,next) {
     res.write('img {');
     res.write('width: 150px;');
     res.write('margin: 10px;');
+    res.write('box-shadow: 8px 8px 5px black;')
     res.write('}');
     res.write('.custom-select {');
     res.write('  font-family: \'Press Start 2P\', cursive;');
@@ -67,12 +68,12 @@ router.get('/', function(req, res,next) {
     res.write('  background-color: #E0E0E0;');
     res.write('}');
     res.write('.custom-select{');
-    res.write('  width: 50%;'); // Adjust width as needed
-    res.write('  margin: 0 auto;'); // Center the element
+    res.write('  width: 50%;'); 
+    res.write('  margin: 0 auto;'); 
     res.write('}');
     res.write('.btn-primary{');
-    res.write('  width: 50%;'); // Adjust width as needed
-    res.write('  margin: 0 auto;'); // Center the element
+    res.write('  width: 50%;'); 
+    res.write('  margin: 0 auto;'); 
     res.write('}');
     res.write('</style>');
     res.write('</head>');

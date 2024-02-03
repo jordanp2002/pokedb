@@ -10,22 +10,26 @@ router.get('/', function(req, res,next) {
     res.write('<meta charset="UTF-8">');
     res.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
     res.write('<title>Pokemon Search</title>');
+    res.write('<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">');
+    res.write('<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> <!-- Pokémon-like font --></link>');
     res.write('<style>');
     res.write('body {');
-    res.write('background-color: #f2f2f2;');
-    res.write('font-family: \'Arial\', sans-serif;');
+    res.write('color: #FFCB05;')
+    res.write('text-shadow: 2px 2px 5px red;')
+    res.write(' background-image: url(\'img/landscape.png\');');
     res.write('margin: 0;');
     res.write('padding: 0;');
     res.write('}');
     res.write('header {');
-    res.write('    background-color: #e74c3c;'); 
+    res.write('     text-shadow: 2px 2px 5px black;')
+    res.write('    background-color: #3B4CCA;'); 
     res.write('    padding: 20px 15px;'); 
     res.write('    text-align: center;');
     res.write('    color: white;'); 
     res.write('    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);'); 
-    res.write('    font-family: \'Arial\', sans-serif;'); 
+    res.write('    font-family: \'Press Start 2P\', cursive;'); 
     res.write('    font-size: 24px;'); 
-    res.write('    border-bottom: 3px solid #c0392b;'); 
+    res.write('    border-bottom: 3px solid #3B4CCA;'); 
     res.write('    margin-bottom: 25px;');
     res.write('}');
     res.write('main {');
@@ -33,6 +37,7 @@ router.get('/', function(req, res,next) {
     res.write('text-align: center;');
     res.write('}');
     res.write('img {');
+    res.write('box-shadow: 8px 8px 5px black;')
     res.write('width: 150px;');
     res.write('margin: 10px;');
     res.write('}');
@@ -47,14 +52,14 @@ router.get('/', function(req, res,next) {
     let name = req.query.name;
     pokemon.card.find(id).then(card => {
         res.write('<style>');
-        res.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
-        res.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
-        res.write('th { background-color: #f2f2f2; }');
-        res.write('tr:nth-child(even){background-color: #f9f9f9;}');
+        res.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; border-color: #3B4CCA}');
+        res.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; border-color: #3B4CCA; border-width: 3px}');
+        res.write('th { background-color: #636fcf; border-color: #3B4CCA; border-width: 3px;}');
+        res.write('tr:nth-child(even){background-color: #636fcf;}');
         res.write('.image-container { text-align: center; margin-bottom: 20px; }');
         res.write('img { max-width: 500px; height: auto; }');
         res.write('</style>');
-        res.write('<h1>' + card.name + '</h1>');  
+        res.write('<h1>' + card.name +' ' + card.id + '</h1>');  
         res.write('<div class="image-container">');
         res.write('<img src="' + card.images.large + '" alt="Image of ' + card.name + '">');
         res.write('</div>');
