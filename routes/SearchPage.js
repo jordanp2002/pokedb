@@ -7,109 +7,98 @@ router.get('/', function(req, res,next) {
     let sort = req.query.sort || 'number';
     let pokemonName = req.query.pokemon;
     let pokemonType = req.query.type;
-    res.write('<!DOCTYPE html>');
-    res.write('<html lang="en">');
-    res.write('<head>');
-    res.write('<meta charset="UTF-8">');
-    res.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
-    res.write('<title>Pokemon Search</title>');
-    res.write(' <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></link>');
-    res.write('<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">');
-    res.write('<style>');
-    res.write('body {');
-    res.write(' background-image: url(\'img/landscape.png\');');
-    res.write('font-family: \'Press Start 2P\', cursive;');
-    res.write('margin: 0;');
-    res.write('padding: 0;');
-    res.write('}');
-    res.write('header {');
-    res.write('     text-shadow: 2px 2px 5px black;')
-    res.write('    background-color: #3B4CCA;'); 
-    res.write('    padding: 10px 15px;'); 
-    res.write('    text-align: center;');
-    res.write('    color: white;'); 
-    res.write('    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);'); 
-    res.write('    font-family: \'Press Start 2P\', cursive;'); 
-    res.write('    font-size: 24px;'); 
-    res.write('    border-bottom: 3px solid #3B4CCA;'); 
-    res.write('    margin-bottom: 25px;');
-    res.write('}');
-    res.write('main {');
-    res.write('padding: 20px;');
-    res.write('text-align: center;');
-    res.write('}');
-    res.write('img {');
-    res.write('width: 150px;');
-    res.write('margin: 10px;');
-    res.write('box-shadow: 8px 8px 5px black;')
-    res.write('}');
-    res.write('.custom-select {');
-    res.write('  font-family: \'Press Start 2P\', cursive;');
-    res.write('  background-color: #fff;');
-    res.write('  border: 1px solid #000;');
-    res.write('  box-shadow: 2px 2px 2px rgba(0,0,0,0.3);');
-    res.write('  border-radius: 5px;');
-    res.write('  padding: .375rem 1.75rem .375rem .75rem;');
-    res.write('  color: #5A5A5A;');
-    res.write('}');
-    res.write('.btn-primary {');
-    res.write('  font-family: \'Press Start 2P\', cursive;');
-    res.write('  background-color: #3B4CCA;');
-    res.write('  border-color: #2a2a9f;');
-    res.write('  box-shadow: 2px 2px 2px rgba(0,0,0,0.3);');
-    res.write('  border-radius: 5px;');
-    res.write('}');
-    res.write('.custom-select:focus, .btn-primary:focus,');
-    res.write('.custom-select:hover, .btn-primary:hover {');
-    res.write('  border-color: #ffcb05;');
-    res.write('  outline: none;');
-    res.write('}');
-    res.write('option:disabled, option:checked {');
-    res.write('  background-color: #E0E0E0;');
-    res.write('}');
-    res.write('.custom-select{');
-    res.write('  width: 50%;'); 
-    res.write('  margin: 0 auto;'); 
-    res.write('}');
-    res.write('.btn-primary{');
-    res.write('  width: 50%;'); 
-    res.write('  margin: 0 auto;'); 
-    res.write('}');
-    res.write('</style>');
-    res.write('</head>');
-    res.write('<body>');
-    res.write('<header>');
-    res.write('<h1>Pokemon Search</h1>');
-    res.write('</header>');
-    res.write('<main id="pokemonResults">');
-    res.write('<form action="SearchPage" method="get">');
-    res.write('<select name="sort" id="sort" class="custom-select">');
-    res.write('<option value="rarity"' + (sort === 'rarity' ? ' selected' : '') + '>Rarity Ascending</option>');
-    res.write('<option value="-rarity"' + (sort === '-rarity' ? ' selected' : '') + '>Rarity Descending</option>');
-    res.write('<option value="set.releaseDate"' + (sort === 'set.releaseDate' ? ' selected' : '') + '>Release Date Oldest</option>');
-    res.write('<option value="-set.releaseDate"' + (sort === '-set.releaseDate' ? ' selected' : '') + '>Release Date Newest</option>');
-    res.write('</select>');
-    res.write('<button type="submit" class="btn btn-primary">Sort</button>');
-    res.write('<input type="hidden" name="pokemon" value="' + pokemonName + '">');
-    res.write('<input type="hidden" name="type" value="' + pokemonType + '">');
-    res.write('</form>');
+    res.write(`
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Pokemon Search</title>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+                <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+                <style>
+                    body {
+                        background-image: url('img/landscape.png');
+                        font-family: 'Press Start 2P', cursive;
+                        margin: 0;
+                        padding: 0;
+                        color: #FFCB05;
+                        text-shadow: 2px 2px 5px red;
+                    }
+                    header {
+                        text-shadow: 2px 2px 5px black;
+                        background-color: #3B4CCA;
+                        padding: 10px 15px;
+                        text-align: center;
+                        color: white;
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                        font-size: 24px;
+                        border-bottom: 3px solid #3B4CCA;
+                        margin-bottom: 25px;
+                    }
+                    main {
+                        padding: 20px;
+                        text-align: center;
+                    }
+                    img {
+                        width: 150px;
+                        margin: 10px;
+                        box-shadow: 8px 8px 5px black;
+                    }
+                    .custom-select, .btn-primary {
+                        font-family: 'Press Start 2P', cursive;
+                        background-color: #fff;
+                        border: 1px solid #000;
+                        box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+                        border-radius: 5px;
+                        padding: .375rem 1.75rem .375rem .75rem;
+                        color: #5A5A5A;
+                        width: 50%; 
+                        margin: 0 auto; 
+                    }
+                    .btn-primary {
+                        background-color: #3B4CCA;
+                        border-color: #2a2a9f;
+                    }
+                    .custom-select:focus, .btn-primary:focus, .custom-select:hover, .btn-primary:hover {
+                        border-color: #ffcb05;
+                        outline: none;
+                    }
+                    option:disabled, option:checked {
+                        background-color: #E0E0E0;
+                    }
+                </style>
+            </head>
+            <body>
+                <header>
+                    <h1>Pokemon Search</h1>
+                </header>
+                <main id="pokemonResults">
+                    <form action="SearchPage" method="get">
+                        <select name="sort" id="sort" class="custom-select">
+                            <option value="rarity"${sort === 'rarity' ? ' selected' : ''}>Rarity Ascending</option>
+                            <option value="-rarity"${sort === '-rarity' ? ' selected' : ''}>Rarity Descending</option>
+                            <option value="set.releaseDate"${sort === 'set.releaseDate' ? ' selected' : ''}>Release Date Oldest</option>
+                            <option value="-set.releaseDate"${sort === '-set.releaseDate' ? ' selected' : ''}>Release Date Newest</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Sort</button>
+                        <input type="hidden" name="pokemon" value="${pokemonName}">
+                        <input type="hidden" name="type" value="${pokemonType}">
+                    </form>
+            `);
+    if (pokemonName && pokemonType === "None") {
+        query = `name:${pokemonName}*`;
+    } else if (pokemonName === '' && pokemonType !== "None") {
+        query = `types:${pokemonType}`;
+    } else if (pokemonName && pokemonType !== "None") {
+        query = `name:${pokemonName} types:${pokemonType}`;
+    }
 
-    if(pokemonName != undefined && pokemonType == "None"){
-        pokemon.card.where({ q: 'name:' + pokemonName + '*', orderBy: sort, pageSize: 250}).then(result => {
-            for (let i = 0; i < result.data.length; i++) {
-                res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
-            }
-            if (result.data.length == 0) {
-                res.write('<h2>No Pokemon found</h2>');
-            }
-            res.write('</main>');
-            res.write('</body>');
-            res.write('</html>');
-            res.end();
-      }); }else if(pokemonName == '' && pokemonType != "None"){
-            pokemon.card.where({ q: 'types:' + pokemonType, orderBy: sort , pageSize: 250}).then(result => {
+    if(query){
+        try{
+            pokemon.card.where({ q: query, orderBy: sort, pageSize: 250}).then(result => {
                 for (let i = 0; i < result.data.length; i++) {
-                    res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
+                    res.write(`<a href="CardView?id=${result.data[i].id}&name=${result.data[i].name}"><img src="${result.data[i].images.small}"></a>`);
                 }
                 if (result.data.length == 0) {
                     res.write('<h2>No Pokemon found</h2>');
@@ -118,18 +107,11 @@ router.get('/', function(req, res,next) {
                 res.write('</body>');
                 res.write('</html>');
                 res.end();
-        }); }else if(pokemonName != '' && pokemonType != "None"){
-            pokemon.card.where({ q: 'name:' + pokemonName + ' types:' + pokemonType, orderBy: sort, pageSize: 250 }).then(result => {
-                for (let i = 0; i < result.data.length; i++) {
-                    res.write('<a href="CardView?id=' + result.data[i].id + '&name=' + result.data[i].name + '"><img src="' + result.data[i].images.small + '"></a>');
-                }
-                if (result.data.length == 0) {
-                    res.write('<h2>No Pokemon found</h2>');
-                }
-                res.write('</main>');
-                res.write('</body>');
-                res.write('</html>');
-                res.end();
-        }); }
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
 });
 module.exports = router;
