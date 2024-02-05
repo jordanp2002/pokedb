@@ -4,66 +4,70 @@ const pokemon = require('pokemontcgsdk');
 pokemon.configure({apiKey: '${process.env.API_KEY}'});
 
 router.get('/', function(req, res,next) {
-    res.write('<!DOCTYPE html>');
-    res.write('<html lang="en">');
-    res.write('<head>');
-    res.write('<meta charset="UTF-8">');
-    res.write('<meta name="viewport" content="width=device-width, initial-scale=1.0">');
-    res.write('<title>Pokemon Search</title>');
-    res.write('<style>');
-    res.write('body {');
-    res.write('background-color: #f2f2f2;');
-    res.write('font-family: \'Arial\', sans-serif;');
-    res.write('margin: 0;');
-    res.write('padding: 0;');
-    res.write('}');
-    res.write('header {');
-    res.write('    background-color: #e74c3c;'); 
-    res.write('    padding: 20px 15px;'); 
-    res.write('    text-align: center;');
-    res.write('    color: white;'); 
-    res.write('    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);'); 
-    res.write('    font-family: \'Arial\', sans-serif;'); 
-    res.write('    font-size: 24px;'); 
-    res.write('    border-bottom: 3px solid #c0392b;'); 
-    res.write('    margin-bottom: 25px;');
-    res.write('}');
-    res.write('main {');
-    res.write('padding: 20px;');
-    res.write('text-align: center;');
-    res.write('}');
-    res.write('img {');
-    res.write('width: 150px;');
-    res.write('margin: 10px;');
-    res.write('}');
-    res.write('</style>');
-    res.write('</head>');
-    res.write('<body>');
-    res.write('<header>');
-    res.write('<h1>Pokemon TCG</h1>');
-    res.write('</header>');
-    res.write('<main id="pokemonResults">');
+    res.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Pokemon Search</title>
+                    <style>
+                        body {
+                            background-color: #f2f2f2;
+                            font-family: 'Arial', sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        header {
+                            background-color: #e74c3c;
+                            padding: 20px 15px;
+                            text-align: center;
+                            color: white;
+                            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                            font-family: 'Arial', sans-serif;
+                            font-size: 24px;
+                            border-bottom: 3px solid #c0392b;
+                            margin-bottom: 25px;
+                        }
+                        main {
+                            padding: 20px;
+                            text-align: center;
+                        }
+                        img {
+                            width: 150px;
+                            margin: 10px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <header>
+                        <h1>Pokemon TCG</h1>
+                    </header>
+                    <main id="pokemonResults">
+            `);
     let id = req.query.id;
     let name = req.query.name;
     pokemon.set.find(id).then(set => {
-        res.write('<style>');
-        res.write('table { width: 100%; border-collapse: collapse; margin-top: 20px; }');
-        res.write('th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }');
-        res.write('th { background-color: #f2f2f2; }');
-        res.write('tr:nth-child(even){background-color: #f9f9f9;}');
-        res.write('.image-container { text-align: center; margin-bottom: 20px; }');
-        res.write('img { max-width: 500px; height: auto; }');
-        res.write('</style>');
-        res.write('<img src="' + set.images.logo + '" alt="Logo of ' + set.name + '">');
-        res.write('<table>');
-        res.write('<tr><th>Property</th><th>Value</th></tr>');
-        res.write('<tr><td>Name</td><td>' + set.name + '</td></tr>');
-        res.write('<tr><td>Release Date</td><td>' + set.releaseDate + '</td></tr>');
-        res.write('<tr><td>Total Cards</td><td>' + set.total + '</td></tr>');
-        res.write('</table>');
-        res.write('</main>');
-        res.write('</body>');
-        res.write('</html>');
+        res.write(`
+                    <style>
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                        th { background-color: #f2f2f2; }
+                        tr:nth-child(even){background-color: #f9f9f9;}
+                        .image-container { text-align: center; margin-bottom: 20px; }
+                        img { max-width: 500px; height: auto; }
+                    </style>
+                    <img src="${set.images.logo}" alt="Logo of ${set.name}">
+                    <table>
+                        <tr><th>Property</th><th>Value</th></tr>
+                        <tr><td>Name</td><td>${set.name}</td></tr>
+                        <tr><td>Release Date</td><td>${set.releaseDate}</td></tr>
+                        <tr><td>Total Cards</td><td>${set.total}</td></tr>
+                    </table>
+                </main>
+                </body>
+                </html>
+                `);
         res.end();
         });
     
